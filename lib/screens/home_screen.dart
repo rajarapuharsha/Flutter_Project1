@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import '../utils/app_theme.dart';
+import '../utils/health_advice.dart';
 import '../widgets/responsive_layout.dart';
+import 'bmi_screen.dart';
+import 'calorie_screen.dart';
 
-/// Main Dashboard screen introducing the application, explaining BMI and caloric
-/// metrics, highlighting UN SDG 3 alignment, and providing direct navigation entry points.
+/// Professional Home Dashboard for VitalTrack.
+/// Features VitalTrack branding and logo, welcome greeting, BMI and Calorie Calculator
+/// launch cards, educational primer, daily wellness tips, and UN SDG 3 alignment.
 class HomeScreen extends StatelessWidget {
-  final VoidCallback onNavigateToCalculator;
+  final VoidCallback? onNavigateToCalculator;
 
   const HomeScreen({
     super.key,
-    required this.onNavigateToCalculator,
+    this.onNavigateToCalculator,
   });
 
   @override
@@ -22,15 +26,19 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Hero Banner & Title
+              // Hero Banner & VitalTrack Branding
               _buildHeroHeader(context),
               const SizedBox(height: 24),
 
-              // Quick Action Entry Points
+              // Action Cards: BMI Calculator & Daily Calorie Calculator
               _buildActionCards(context),
               const SizedBox(height: 28),
 
-              // Educational Primer: BMI & Calories Explained
+              // Short Wellness Tips Section
+              _buildDailyTipsSection(context),
+              const SizedBox(height: 28),
+
+              // Health Information Primer: BMI, BMR, TDEE
               _buildPrimerSection(context),
               const SizedBox(height: 28),
 
@@ -60,9 +68,9 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryNavy.withOpacity(0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: AppTheme.primaryNavy.withOpacity(0.25),
+            blurRadius: 14,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -78,8 +86,8 @@ class HomeScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
-                  Icons.monitor_heart_outlined,
-                  color: Colors.white,
+                  Icons.favorite,
+                  color: Color(0xFF38BDF8),
                   size: 32,
                 ),
               ),
@@ -89,20 +97,21 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'BMI & Daily Calorie Calculator',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      'VitalTrack',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w900,
                             letterSpacing: -0.5,
                           ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Healthy Living for Sustainable Development — UN SDG 3',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: const Color(0xFF93C5FD),
-                            fontWeight: FontWeight.w500,
-                          ),
+                    const SizedBox(height: 2),
+                    const Text(
+                      'Understand Your Body. Improve Your Lifestyle.',
+                      style: TextStyle(
+                        color: Color(0xFF93C5FD),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.5,
+                      ),
                     ),
                   ],
                 ),
@@ -111,9 +120,9 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const Text(
-            'Understand your body measurements, estimate basal metabolic rate and daily maintenance '
-            'energy, and gain insights into balanced nutrition and sustainable lifestyle habits — completely offline '
-            'with zero data tracking.',
+            'Welcome to VitalTrack — your offline personal companion for Body Mass Index (BMI), '
+            'Basal Metabolic Rate (BMR), and Daily Calorie requirements. Built for UN Sustainable '
+            'Development Goal 3 (Good Health and Well-Being), VitalTrack runs 100% offline with zero data tracking.',
             style: TextStyle(
               color: Color(0xFFF1F5F9),
               fontSize: 14,
@@ -121,21 +130,43 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: onNavigateToCalculator,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppTheme.secondaryTeal,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          Wrap(
+            spacing: 12,
+            runSpacing: 10,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const BmiScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.secondaryTeal,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                icon: const Icon(Icons.scale_outlined, size: 18),
+                label: const Text('BMI Calculator', style: TextStyle(fontWeight: FontWeight.w700)),
               ),
-            ),
-            icon: const Icon(Icons.arrow_forward),
-            label: const Text(
-              'Launch Calculator',
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CalorieScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF2563EB),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                icon: const Icon(Icons.local_fire_department_outlined, size: 18),
+                label: const Text('Calorie Calculator', style: TextStyle(fontWeight: FontWeight.w700)),
+              ),
+            ],
           ),
         ],
       ),
@@ -150,21 +181,31 @@ class HomeScreen extends StatelessWidget {
         context: context,
         icon: Icons.scale_outlined,
         accentColor: AppTheme.primaryBlue,
-        title: 'Body Mass Index (BMI)',
+        title: 'BMI Calculator',
         description:
-            'Evaluate weight-to-height ratio classified across Underweight, Normal, Overweight, and Obesity ranges.',
-        buttonLabel: 'Calculate BMI',
-        onTap: onNavigateToCalculator,
+            'Calculate metric Body Mass Index (kg/m²) and evaluate adult WHO classifications across Underweight, Normal, Overweight, and Obesity ranges.',
+        buttonLabel: 'Launch BMI Calculator',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BmiScreen()),
+          );
+        },
       ),
       _buildFeatureCard(
         context: context,
         icon: Icons.local_fire_department_outlined,
         accentColor: AppTheme.secondaryTeal,
-        title: 'Calorie & BMR Estimator',
+        title: 'Daily Calorie Calculator',
         description:
-            'Compute basal metabolic rate with Mifflin-St Jeor and evaluate maintenance calories using 5 physical activity tiers.',
-        buttonLabel: 'Estimate Calories',
-        onTap: onNavigateToCalculator,
+            'Compute resting Basal Metabolic Rate via the Mifflin-St Jeor equation and evaluate maintenance calories across 5 activity multipliers.',
+        buttonLabel: 'Launch Calorie Calculator',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CalorieScreen()),
+          );
+        },
       ),
     ];
 
@@ -216,7 +257,6 @@ class HomeScreen extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFF0F172A),
                   ),
             ),
             const SizedBox(height: 8),
@@ -231,14 +271,14 @@ class HomeScreen extends StatelessWidget {
             OutlinedButton(
               onPressed: onTap,
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(42),
+                minimumSize: const Size.fromHeight(44),
                 foregroundColor: accentColor,
-                side: BorderSide(color: accentColor.withOpacity(0.6)),
+                side: BorderSide(color: accentColor.withOpacity(0.7), width: 1.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(buttonLabel),
+                  Text(buttonLabel, style: const TextStyle(fontWeight: FontWeight.w700)),
                   const SizedBox(width: 8),
                   const Icon(Icons.arrow_forward_rounded, size: 16),
                 ],
@@ -247,6 +287,91 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDailyTipsSection(BuildContext context) {
+    final tips = HealthAdvice.getDailyTips();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.tips_and_updates_outlined, color: AppTheme.secondaryTeal, size: 22),
+            const SizedBox(width: 8),
+            Text(
+              'Wellness Tips for Daily Living',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 130,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: tips.length,
+            separatorBuilder: (context, index) => const SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              final tip = tips[index];
+              final tipColor = Color(tip['color'] as int);
+
+              return Container(
+                width: 250,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardTheme.color,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: tipColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      tip['subtitle'] as String,
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: Color(0xFF64748B),
+                        height: 1.35,
+                      ),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -262,35 +387,34 @@ class HomeScreen extends StatelessWidget {
                 const Icon(Icons.menu_book_outlined, color: AppTheme.primaryNavy, size: 24),
                 const SizedBox(width: 10),
                 Text(
-                  'Quick Health Primer: BMI & Calories',
+                  'Health Information Primer',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF0F172A),
                       ),
                 ),
               ],
             ),
             const SizedBox(height: 14),
             _buildPrimerItem(
-              title: 'What is Body Mass Index (BMI)?',
+              title: 'Body Mass Index (BMI)',
               body:
-                  'BMI is an epidemiological screening tool representing weight in kilograms divided by height in meters squared (kg/m²). '
-                  'While useful for population-level trends, it does not directly differentiate between muscle mass, bone density, and adipose tissue.',
+                  'BMI is an epidemiological metric defined as weight (kg) divided by height squared (m²). '
+                  'The World Health Organization classifies adult BMI into Underweight (<18.5), Normal weight (18.5-24.9), '
+                  'Overweight (25.0-29.9), and Obesity (≥30.0). It serves as a screening indicator rather than a diagnostic measurement.',
             ),
             const Divider(height: 24),
             _buildPrimerItem(
-              title: 'What is Basal Metabolic Rate (BMR)?',
+              title: 'Basal Metabolic Rate (BMR)',
               body:
-                  'BMR represents the baseline number of calories your body requires to maintain involuntary vital functions '
-                  '(breathing, circulation, cellular repair) in a post-absorptive, resting state. This application uses the validated '
-                  'Mifflin-St Jeor equation.',
+                  'BMR is the baseline energy expended to maintain involuntary vital life functions (cardiac rhythm, cellular respiration, thermoregulation) '
+                  'in a resting state. VitalTrack uses the validated Mifflin-St Jeor equation with sex-specific constants.',
             ),
             const Divider(height: 24),
             _buildPrimerItem(
-              title: 'What is Total Daily Energy Expenditure (TDEE)?',
+              title: 'Total Daily Energy Expenditure (TDEE)',
               body:
-                  'TDEE scales your BMR by your physical activity level. Understanding your maintenance energy intake empowers informed '
-                  'lifestyle adjustments, balanced nutritional choices, and sustainable health habits.',
+                  'TDEE scales your resting BMR by your physical activity tier (1.2x to 1.9x). '
+                  'Consuming calories matching your TDEE maintains current weight; modest deficits (~300 kcal/day) facilitate sustainable reduction.',
             ),
           ],
         ),
@@ -307,7 +431,6 @@ class HomeScreen extends StatelessWidget {
           style: const TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 14,
-            color: Color(0xFF1E293B),
           ),
         ),
         const SizedBox(height: 6),
@@ -352,7 +475,7 @@ class HomeScreen extends StatelessWidget {
                     const Text(
                       'UN Sustainable Development Goal 3',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.w800,
                         color: Color(0xFF065F46),
                       ),
@@ -372,13 +495,12 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           const Text(
-            'This project contributes to SDG Target 3.4 by promoting preventive wellness, non-communicable disease awareness, '
-            'and nutritional education. By providing transparent, privacy-first access to personal health metrics, users are '
-            'empowered to build sustainable physical activity habits and engage in informed dialogues with healthcare practitioners.',
+            HealthAdvice.sdg3Justification,
             style: TextStyle(
               fontSize: 13,
               color: Color(0xFF064E3B),
               height: 1.5,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -394,16 +516,16 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFFDE68A)),
       ),
-      child: Row(
+      child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.shield_outlined, color: AppTheme.overweightColor, size: 24),
-          const SizedBox(width: 12),
+          Icon(Icons.shield_outlined, color: AppTheme.overweightColor, size: 24),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Educational & Non-Diagnostic Disclaimer',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -411,14 +533,12 @@ class HomeScreen extends StatelessWidget {
                     color: Color(0xFF92400E),
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
-                  'This application is an academic software demonstration intended solely for educational and self-awareness purposes. '
-                  'Calculations and classifications are mathematical estimates, not diagnostic medical determinations or personalized nutritional '
-                  'prescriptions. Always consult qualified healthcare professionals, registered dietitians, or physicians for personalized medical advice.',
+                  HealthAdvice.nonDiagnosticDisclaimer,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.amber.shade900,
+                    color: Color(0xFF92400E),
                     height: 1.45,
                   ),
                 ),

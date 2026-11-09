@@ -1,4 +1,4 @@
-# User Manual: BMI & Daily Calorie Calculator
+# User Manual: VitalTrack – BMI & Daily Calorie Companion
 ## Healthy Living for Sustainable Development (UN SDG 3)
 
 ---
@@ -8,30 +8,21 @@
 2. [System Requirements & Installation](#2-system-requirements--installation)
 3. [Launching the Application](#3-launching-the-application)
 4. [Navigating the Dashboard](#4-navigating-the-dashboard)
-5. [Step-by-Step Calculator Guide](#5-step-by-step-calculator-guide)
-   - [5.1 Entering Personal Profile](#51-entering-personal-profile)
-   - [5.2 Entering Body Measurements](#52-entering-body-measurements)
-   - [5.3 Selecting Activity Level](#53-selecting-activity-level)
-   - [5.4 Selecting Caloric Objective](#54-selecting-caloric-objective)
-   - [5.5 Executing Calculation](#55-executing-calculation)
-6. [Interpreting Your Results](#6-interpreting-your-results)
-   - [6.1 Body Mass Index (BMI) & Visual Spectrum](#61-body-mass-index-bmi--visual-spectrum)
-   - [6.2 Basal Metabolic Rate (BMR)](#62-basal-metabolic-rate-bmr)
-   - [6.3 Daily Maintenance Calories (TDEE)](#63-daily-maintenance-calories-tdee)
-   - [6.4 Weight Objective Caloric Adjustment](#64-weight-objective-caloric-adjustment)
-   - [6.5 Pediatric & Adolescent Notice](#65-pediatric--adolescent-notice)
-   - [6.6 Lifestyle & Nutrition Recommendations](#66-lifestyle--nutrition-recommendations)
-7. [Resetting the Calculator](#7-resetting-the-calculator)
-8. [Privacy, Data Security & Offline Use](#8-privacy-data-security--offline-use)
-9. [Frequently Asked Questions (FAQ)](#9-frequently-asked-questions-faq)
-10. [Health & Safety Disclaimer](#10-health--safety-disclaimer)
+5. [Using the BMI Calculator](#5-using-the-bmi-calculator)
+6. [Using the Daily Calorie Calculator](#6-using-the-daily-calorie-calculator)
+7. [Interpreting Your Health Profile](#7-interpreting-your-health-profile)
+8. [Pediatric Safety Features](#8-pediatric-safety-features)
+9. [Theme Mode & Accessibility](#9-theme-mode--accessibility)
+10. [Privacy, Data Security & Offline Use](#10-privacy-data-security--offline-use)
+11. [Frequently Asked Questions (FAQ)](#11-frequently-asked-questions-faq)
+12. [Health & Safety Disclaimer](#12-health--safety-disclaimer)
 
 ---
 
 ### 1. Introduction
-The **BMI & Daily Calorie Calculator** is an academic software application designed to support **United Nations Sustainable Development Goal 3: Good Health and Well-Being**. The application calculates Body Mass Index (BMI), Basal Metabolic Rate (BMR) via the Mifflin-St Jeor formula, and Total Daily Energy Expenditure (TDEE) across five standard physical activity tiers.
+**VitalTrack – BMI & Daily Calorie Companion** is an academic software application designed to support **United Nations Sustainable Development Goal 3: Good Health and Well-Being**. The application calculates Body Mass Index (BMI), Basal Metabolic Rate (BMR) via the Mifflin-St Jeor formula, and Total Daily Energy Expenditure (TDEE) across five standard physical activity tiers.
 
-It is 100% offline, privacy-first, and requires no account registration, remote servers, or background analytics.
+VitalTrack operates **100% offline**, privacy-first, and requires no account registration, remote servers, or background analytics.
 
 ---
 
@@ -39,8 +30,8 @@ It is 100% offline, privacy-first, and requires no account registration, remote 
 
 | Platform | Minimum OS Version | Hardware Requirements |
 |---|---|---|
-| **Web** | Modern browser (Chrome 90+, Edge 90+, Firefox 88+, Safari 14+) | 1 GHz CPU, 2 GB RAM, 1024x768 display |
 | **Android** | Android 5.0 (API level 21) or higher | 1.5 GHz multi-core, 2 GB RAM |
+| **Web** | Modern browser (Chrome 90+, Edge 90+, Firefox 88+, Safari 14+) | 1 GHz CPU, 2 GB RAM |
 | **Windows Desktop** | Windows 10 (64-bit) or Windows 11 | x64 CPU, 4 GB RAM, DirectX 11 support |
 | **iOS / iPadOS** | iOS 12.0 or higher | 64-bit Apple device |
 | **macOS Desktop** | macOS 10.14 (Mojave) or higher | Intel or Apple Silicon, 4 GB RAM |
@@ -61,127 +52,97 @@ It is 100% offline, privacy-first, and requires no account registration, remote 
    flutter pub get
    ```
 4. Run on your desired platform:
-   - **Web Browser (Chrome)**: `flutter run -d chrome`
-   - **Windows Desktop**: `flutter run -d windows`
-   - **Android Device/Emulator**: `flutter run -d android`
-   - **macOS Desktop**: `flutter run -d macos`
-   - **Linux Desktop**: `flutter run -d linux`
+   - **Android Device/Emulator:** `flutter run -d android`
+   - **Web Browser (Chrome):** `flutter run -d chrome`
+   - **Windows Desktop:** `flutter run -d windows`
 
 ---
 
 ### 4. Navigating the Dashboard
-Upon opening the app, you arrive at the **Main Dashboard**:
-- **Hero Banner**: Features the project title, SDG 3 mission statement, and a direct "Launch Calculator" button.
-- **Feature Cards**: Separate entry points highlighting BMI and Daily Calorie estimation principles.
-- **Quick Health Primer**: Concise explanations of BMI, BMR, and TDEE.
-- **UN SDG 3 Card**: In-depth description of Target 3.4 (preventive health, lifestyle disease mitigation).
-- **Navigation Bar**: Located at the bottom (or side on desktop) allowing instant toggling between `Dashboard` and `Calculator`.
-- **Top Bar Info Action**: Tap the info icon (`ℹ️`) in the upper-right corner at any time to open the "About This Project" summary modal.
+Upon opening VitalTrack, you arrive at the **Home Dashboard**:
+- **Hero Banner:** Features the VitalTrack brand identity, pulse logo, tagline, and quick launcher buttons.
+- **BMI & Calorie Cards:** Direct cards to launch the dedicated calculators.
+- **Wellness Tips:** A horizontal carousel of practical daily habits (Hydration, 150-Min Movement, Whole Foods, Restorative Sleep, Mindful Eating).
+- **Health Primer:** Summary cards explaining BMI, BMR, and TDEE.
+- **UN SDG 3 Card:** Explains the project's contribution to Target 3.4.
+- **Top Bar Actions:**
+  - **Theme Toggle:** Switch between Light and Dark mode.
+  - **Info Button (ℹ️):** Opens the About VitalTrack dialog.
+- **Bottom Navigation Bar:** Switch between Dashboard, BMI Calculator, Calorie Calculator, and All-in-One view.
 
 ---
 
-### 5. Step-by-Step Calculator Guide
-
-#### 5.1 Entering Personal Profile
-1. **Age**: Enter your current age in completed years (e.g., `25`).
-   - Allowed range: `2` to `120` years.
-   - *Note*: If age is under 18, pediatric safety guardrails will be activated.
-2. **Biological Sex**: Select **Male** or **Female** using the toggle segment.
-   - This selection supplies the sex-specific biological constant for the Mifflin-St Jeor metabolic formula.
-
-#### 5.2 Entering Body Measurements
-1. **Height (cm)**: Enter your height in centimeters (e.g., `175` or `168.5`).
-   - Allowed range: `50.0` to `260.0` cm.
-2. **Weight (kg)**: Enter your current body weight in kilograms (e.g., `70` or `64.2`).
-   - Allowed range: `10.0` to `400.0` kg.
-
-#### 5.3 Selecting Activity Level
-Select the option from the dropdown menu that best matches your typical weekly routine:
-- **Sedentary (1.2x)**: Desk job, minimal or no deliberate exercise.
-- **Lightly Active (1.375x)**: Light physical movement or sports 1–3 days per week.
-- **Moderately Active (1.55x)**: Moderate physical exercise 3–5 days per week.
-- **Very Active (1.725x)**: Intense training or physical labor 6–7 days per week.
-- **Extra Active (1.9x)**: High-performance athletics, twice-daily training, or heavy construction.
-
-#### 5.4 Selecting Caloric Objective
-Choose your weight management preference:
-- **Maintain Weight**: Balances daily intake with expenditure (0 kcal offset).
-- **Gradual Loss (-300 kcal)**: Creates a modest, safe calorie deficit.
-- **Gradual Gain (+300 kcal)**: Provides a slight surplus for gradual weight/muscle accretion.
-
-#### 5.5 Executing Calculation
-Tap the primary **Calculate** button.
-- If any input is blank or outside valid ranges, red error messages will appear beneath the problematic field.
-- If all values are valid, the screen dynamically displays the calculated results. On mobile devices, the screen smoothly scrolls to the results.
+### 5. Using the BMI Calculator
+1. Select the **BMI** tab from the bottom navigation bar or tap **Launch BMI Calculator** on the home dashboard.
+2. Enter your **Age** in years (e.g. `25`).
+3. Enter your **Height** in centimeters (e.g. `175.0`).
+4. Enter your **Weight** in kilograms (e.g. `70.0`).
+5. Tap **Calculate BMI**.
+6. View your large BMI numerical score (e.g. `22.9 kg/m²`), category badge (e.g. `Normal weight`), and visual spectrum indicator.
+7. Tap the toggle icon in the card header to switch between the horizontal spectrum bar and the radial circular gauge.
+8. Tap **View Complete Health Profile** to see your integrated results.
 
 ---
 
-### 6. Interpreting Your Results
-
-#### 6.1 Body Mass Index (BMI) & Visual Spectrum
-- **Display**: Displays your calculated BMI in $\text{kg/m}^2$, rounded to one decimal place.
-- **Category Badge**: Classified according to standard WHO guidelines:
-  - **Underweight**: BMI $< 18.5$ (Sky Blue)
-  - **Normal weight**: $18.5 \le \text{BMI} < 25.0$ (Emerald Green)
-  - **Overweight**: $25.0 \le \text{BMI} < 30.0$ (Warm Amber)
-  - **Obesity**: $\text{BMI} \ge 30.0$ (Crimson Red)
-- **Spectrum Gauge**: A horizontal visual indicator with boundary tick-marks pointing directly to your position on the scale.
-
-#### 6.2 Basal Metabolic Rate (BMR)
-- Expressed in **kcal / day**.
-- Represents the baseline calories consumed by vital physiological processes (cellular maintenance, breathing, brain function, heart contractions) while at complete physical rest.
-
-#### 6.3 Daily Maintenance Calories (TDEE)
-- Expressed in **kcal / day**.
-- Calculated as: $\text{TDEE} = \text{BMR} \times \text{Activity Multiplier}$.
-- This is the estimated daily caloric energy needed to sustain your current body weight at your declared activity level.
-
-#### 6.4 Weight Objective Caloric Adjustment
-- Shows your adjusted daily caloric target.
-- **Interactive Switcher**: You can tap between Maintain, Gradual Loss, and Gradual Gain chips right inside the results card to instantly see target comparisons without re-entering form data.
-
-#### 6.5 Pediatric & Adolescent Notice
-When the entered age is under 18:
-- Adult BMI classifications and adult calorie targets are suppressed.
-- A prominent clinical notification advises that youth body composition changes dynamically with growth, requiring age-and-sex specific growth charts (CDC/WHO percentiles) interpreted by a pediatrician.
-
-#### 6.6 Lifestyle & Nutrition Recommendations
-Provides actionable, non-prescriptive advice emphasizing:
-- Whole-food nutrition and adequate protein intake.
-- Hydration targets (2–3 liters daily).
-- At least 150 minutes of weekly moderate cardiovascular exercise.
-- 7–9 hours of consistent, restorative sleep.
+### 6. Using the Daily Calorie Calculator
+1. Select the **Calories** tab from the bottom navigation bar.
+2. Enter your **Age**, select your **Biological Sex** (Male or Female), enter your **Height (cm)**, and enter your **Weight (kg)**.
+3. Select your **Physical Activity Level** from the dropdown menu:
+   - Sedentary ($1.2\times$)
+   - Lightly Active ($1.375\times$)
+   - Moderately Active ($1.55\times$)
+   - Very Active ($1.725\times$)
+   - Extra Active ($1.9\times$)
+4. Choose your **Caloric Objective** (Maintain Weight, Gradual Loss, Gradual Gain).
+5. Tap **Estimate Calories**.
+6. View your **Basal Metabolic Rate (BMR)**, **Daily Maintenance Calories (TDEE)**, and nutritional guidelines.
 
 ---
 
-### 7. Resetting the Calculator
-To clear all data:
-1. Tap the **Reset** button on the form.
-2. All inputs, validation errors, and calculated result cards will be cleared immediately.
-3. The interface returns to the friendly empty state awaiting new measurements.
+### 7. Interpreting Your Health Profile
+The **Complete Health Profile Screen** displays:
+- **Biometric Summary:** Height, weight, age, and sex overview.
+- **BMI Score & Category:** Underweight ($<18.5$), Normal ($18.5-24.9$), Overweight ($25.0-29.9$), or Obesity ($\ge 30.0$).
+- **BMR (kcal/day):** Baseline resting energy expenditure.
+- **Maintenance Calories (TDEE):** Daily energy required to sustain current weight.
+- **Interactive Goal Switcher:** Tap between Maintain, Loss (-300 kcal), and Gain (+300 kcal) chips to see instant adjustments.
+- **Personalized Recommendations:** Category-specific lifestyle tips and SDG 3 healthy living pillars.
 
 ---
 
-### 8. Privacy, Data Security & Offline Use
-- **100% Offline**: All calculations execute strictly in your local device memory using Dart.
-- **Zero Data Collection**: No cookies, no trackers, no telemetry, and no remote network requests are made.
-- **Session Only**: Entered measurements are held in temporary memory during execution and are never written to unencrypted permanent storage.
+### 8. Pediatric Safety Features
+When the entered age is under 18 years:
+- Adult BMI classifications and adult weight loss/gain targets are suppressed.
+- A prominent medical advisory informs that adolescent body composition dynamically changes with growth and requires pediatric percentile growth charts evaluated by a healthcare professional.
 
 ---
 
-### 9. Frequently Asked Questions (FAQ)
+### 9. Theme Mode & Accessibility
+- Tap the **Sun/Moon** icon in the AppBar at any time to toggle between Light Theme and Dark Theme.
+- High-contrast colors ensure legibility across all lighting environments.
 
-**Q1: Why does BMI categorize me as overweight if I lift weights regularly?**  
-*A: BMI is a general ratio of mass to height. It does not measure body composition directly and cannot distinguish between dense lean muscle tissue and adipose fat. Athletes and muscular individuals should use body composition scans (DEXA, calipers) or consult a sports nutritionist.*
+---
+
+### 10. Privacy, Data Security & Offline Use
+- **100% Offline:** All math executes strictly in device RAM using Dart functions.
+- **Zero Data Collection:** No cookies, trackers, telemetry, or cloud requests.
+- **Session Only:** Data is stored in memory during runtime and is cleared upon resetting.
+
+---
+
+### 11. Frequently Asked Questions (FAQ)
+
+**Q1: Why does BMI categorize an athlete as overweight?**  
+*A: BMI is a ratio of mass to height. It does not measure body fat percentage directly and cannot distinguish dense muscle tissue from fat.*
 
 **Q2: Are the BMR equations exact?**  
-*A: The Mifflin-St Jeor equation is one of the most widely validated predictive models in clinical nutrition, but individual metabolic rates vary based on thyroid function, genetics, muscle mass, and climate.*
+*A: The Mifflin-St Jeor formula is one of the most widely validated predictive models in clinical nutrition, but individual metabolic rates vary based on thyroid function, genetics, muscle mass, and climate.*
 
-**Q3: Can children use this calculator?**  
-*A: Yes, but the app safely identifies ages under 18, suppresses adult cutoffs, and provides pediatric health education.*
+**Q3: Can children use VitalTrack?**  
+*A: Yes, but VitalTrack safely detects ages under 18, suppresses adult cutoffs, and provides pediatric health education.*
 
 ---
 
-### 10. Health & Safety Disclaimer
+### 12. Health & Safety Disclaimer
 > [!IMPORTANT]
-> This application is strictly an educational tool designed for academic demonstration and general wellness self-awareness. It is **not** a certified medical diagnostic device. Do not use its output to diagnose illnesses, manage clinical conditions, or replace professional consultation with a licensed physician or registered dietitian.
+> VitalTrack is strictly an educational tool designed for academic demonstration and general wellness self-awareness. It is **not** a certified medical diagnostic device. Do not use its output to diagnose illnesses, manage clinical conditions, or replace professional consultation with a licensed physician or registered dietitian.
